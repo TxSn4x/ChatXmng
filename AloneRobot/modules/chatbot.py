@@ -130,40 +130,58 @@ def chatbot(update: Update, context: CallbackContext):
         bot.send_chat_action(chat_id, action="typing")
         from urllib.parse import quote_plus
 
-text = quote_plus(message.text)
+def chatbot(update: Update, context: CallbackContext):
+    message = update.effective_message
+    chat_id = update.effective_chat.id
+    bot = context.bot
 
-url = (
-    "https://alonexrobot.vercel.app/api/group-controller/alone"
-    f"?apikey={CHATBOT_API}&message={text}"
-)
+    is_alone = sql.is_alone(chat_id)
+    if is_alone:
+        return
 
-try:
-    response = requests.get(url, timeout=10)
-except Exception as e:
-    print("REQUEST ERROR:", e)
-    message.reply_text("❌ Chatbot service unreachable.")
-    return
+    if not message.text or message.document:
+        return
 
-if response.status_code != 200:
-    print("API STATUS:", response.status_code)
-    print("API TEXT:", response.text)
-    message.reply_text("⚠️ Chatbot API error.")
-    return
+    if not alone_message(context, message):
+        return
 
-try:
-    out = response.json()
-except Exception as e:
-    print("JSON ERROR:", e)
-    print("RAW RESPONSE:", response.text)
-    message.reply_text("⚠️ Invalid chatbot response.")
-    return
+    bot.send_chat_action(chat_id, action="typing")
 
-reply = out.get("reply")
-if not reply:
-    message.reply_text("🤖 I didn't understand that.")
-    return
+    text = quote_plus(message.text)
 
-message.reply_text(reply)
+    url = (
+        "https://alonexrobot.vercel.app/api/group-controller/alone"
+        f"?apikey={CHATBOT_API}&message={text}"
+    )
+
+    try:
+        response = requests.get(url, timeout=10)
+    except Exception as e:
+        print("REQUEST ERROR:", e)
+        message.reply_text("❌ Chatbot service unreachable.")
+        return
+
+    if response.status_code != 200:
+        print("API STATUS:", response.status_code)
+        print("API TEXT:", response.text)
+        message.reply_text("⚠️ Chatbot API error.")
+        return
+
+    try:
+        out = response.json()
+    except Exception as e:
+        print("JSON ERROR:", e)
+        print("RAW RESPONSE:", response.text)
+        message.reply_text("⚠️ Invalid chatbot response.")
+        return
+
+    reply = out.get("reply")
+    if not reply:
+        message.reply_text("🤖 I didn't understand that.")
+        return
+
+    message.reply_text(reply)
+
 
 
 
