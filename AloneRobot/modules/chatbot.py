@@ -151,8 +151,8 @@ def chatbot(update: Update, context: CallbackContext):
     text = quote_plus(message.text)
 
     url = (
-        "https://alonexrobot.vercel.app/api/group-controller/alone"
-        f"?apikey={CHATBOT_API}&message={text}"
+        "http://api.acix.site"
+        f"?apikey=FREEAPIKEY&message={text}"
     )
 
     try:
