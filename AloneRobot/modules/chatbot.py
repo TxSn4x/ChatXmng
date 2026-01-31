@@ -25,6 +25,7 @@ import AloneRobot.modules.sql.chatbot_sql as sql
 from AloneRobot import BOT_ID, BOT_NAME, BOT_USERNAME, dispatcher,CHATBOT_API
 from AloneRobot.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply
 from AloneRobot.modules.log_channel import gloggable
+from urllib.parse import quote_plus
 
 
 @user_admin_no_reply
