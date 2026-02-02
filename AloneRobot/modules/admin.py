@@ -6,11 +6,11 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html
 from pyrogram import filters,enums
-from MukeshRobot import DRAGONS, dispatcher,OWNER_ID,pbot
-from MukeshRobot.modules.disable import DisableAbleCommandHandler
-from MukeshRobot.modules.helper_funcs.admin_rights import user_can_changeinfo
-from MukeshRobot.modules.helper_funcs.alternate import send_message
-from MukeshRobot.modules.helper_funcs.chat_status import (
+from AloneRobot import DRAGONS, dispatcher,OWNER_ID,pbot
+from AloneRobot.modules.disable import DisableAbleCommandHandler
+from AloneRobot.modules.helper_funcs.admin_rights import user_can_changeinfo
+from AloneRobot.modules.helper_funcs.alternate import send_message
+from AloneRobot.modules.helper_funcs.chat_status import (
     ADMIN_CACHE,
     bot_admin,
     can_pin,
@@ -18,11 +18,11 @@ from MukeshRobot.modules.helper_funcs.chat_status import (
     connection_status,
     user_admin,
 )
-from MukeshRobot.modules.helper_funcs.extraction import (
+from AloneRobot.modules.helper_funcs.extraction import (
     extract_user,
     extract_user_and_text,
 )
-from MukeshRobot.modules.log_channel import loggable
+from AloneRobot.modules.log_channel import loggable
 
 
 @bot_admin
@@ -1001,4 +1001,4 @@ __handlers__ = [
     DEMOTE_HANDLER,
     SET_TITLE_HANDLER,
     ADMIN_REFRESH_HANDLER,
-    ]
+          ]
